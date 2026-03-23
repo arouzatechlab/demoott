@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get in touch | Streamit OTT</title>
+    <!-- Google Fonts for premium typography -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+        --disabled: #757575;
+        --success: #46d369;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+          url("./assets/404.webp");
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .hero-content h1 {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        animation: fadeInDown 0.8s ease forwards;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- CONTACT CARDS SECTION --- */
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: -80px; /* Overlap effect */
+        position: relative;
+        z-index: 10;
+      }
+
+      .contact-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+        transition: var(--transition);
+        /* cursor: pointer; */
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        border-color: var(--netflix-red);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .icon-box {
+        width: 48px;
+        height: 48px;
+        background: var(--bg-black);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon-box svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .card-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .card-footer {
+        font-weight: 500;
+        font-size: 15px;
+        margin-top: auto;
+      }
+
+      /* --- FORM & INFO SECTION --- */
+      .main-content-split {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        margin-top: 60px;
+      }
+
+      .form-container {
+        background: var(--bg-card);
+        padding: 32px;
+        border-radius: 10px;
+        flex: 1;
+      }
+
+      .form-header h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .form-header p {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+
+      .contact-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      input,
+      textarea {
+        background: var(--bg-black);
+        border: 1px solid var(--border);
+        padding: 12px 16px;
+        color: white;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+        transition: var(--transition);
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--netflix-red);
+      }
+
+      textarea {
+        height: 120px;
+        resize: none;
+      }
+
+      .checkbox-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 10px 0;
+      }
+
+      .checkbox-container input {
+        width: auto;
+        height: auto;
+        accent-color: var(--netflix-red);
+      }
+
+      .submit-btn {
+        background: var(--netflix-red);
+        color: white;
+        border: none;
+        height: 50px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .submit-btn:hover {
+        background: var(--netflix-red-dark);
+      }
+
+      /* --- INFO SIDEBAR --- */
+      .info-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .info-block {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px;
+      }
+
+      .info-block:last-child {
+        border-bottom: none;
+      }
+
+      .info-block h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+
+      .info-block p,
+      .info-block address {
+        color: var(--text-muted);
+        font-size: 14px;
+        font-style: normal;
+        line-height: 1.8;
+      }
+
+      .info-block address strong {
+        color: white;
+        display: block;
+        margin-top: 8px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .social-btn {
+        width: 40px;
+        height: 40px;
+        background: var(--bg-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .social-btn:hover {
+        background: var(--netflix-red);
+      }
+
+      .social-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: white;
+      }
+
+      /* --- MAP SECTION --- */
+      .map-section {
+        width: 100%;
+        height: 350px;
+        background: #222;
+        overflow: hidden;
+        margin-top: 40px;
+      }
+
+      .map-section iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        filter: grayscale(100%) invert(90%) contrast(90%);
+      }
+
+      /* --- SCROLL REVEAL --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* --- RESPONSIVE BREAKPOINTS --- */
+      @media (min-width: 768px) {
+        .cards-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .hero {
+          height: 60vh;
+        }
+        .hero-content h1 {
+          font-size: 48px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .cards-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .main-content-split {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+        .form-container {
+          flex: 0 0 70%;
+        }
+        .info-sidebar {
+          flex: 1;
+        }
+        .contact-form {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .full-width {
+          grid-column: span 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="film-navbar">
+      <div class="perforations top" id="perf-top"></div>
+      <div class="nav-logo">
+        <div class="logo-img">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            onclick="window.location.href = './index.html'"
+          />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="./index.html" class="nav-item"
+          ><i data-lucide="home"></i><span>Home</span></a
+        >
+        <a href="./about.html" class="nav-item"
+          ><i data-lucide="info"></i><span>About Us</span></a
+        >
+        <a href="./blog.html" class="nav-item"
+          ><i data-lucide="clapperboard"></i><span>Blog</span></a
+        >
+        <a href="./contact.html" class="nav-item"
+          ><i data-lucide="mail"></i><span>Contact</span></a
+        >
+      </div>
+      <div class="nav-actions">
+        <a href="./login.html" class="btn btn-login">Login</a>
+        <a href="./signup.html" class="btn btn-start">Get Started</a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">
+        <div class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+      <div class="perforations bottom" id="perf-bottom"></div>
+    </nav>
+
+    <!-- Mobile Overlay with its own Close Button -->
+    <div class="mobile-overlay" id="mobile-overlay">
+      <button class="close-overlay-btn" id="close-overlay">
+        <i data-lucide="x" style="width: 30px; height: 30px"></i>
+      </button>
+      <div class="mobile-links">
+        <a href="./index.html" class="mobile-item"
+          ><i data-lucide="home"></i>Home</a
+        >
+        <a href="./about.html" class="mobile-item"
+          ><i data-lucide="info"></i>About Us</a
+        >
+        <a href="./blog.html" class="mobile-item"
+          ><i data-lucide="clapperboard"></i>Blog</a
+        >
+        <a href="./contact.html" class="mobile-item"
+          ><i data-lucide="mail"></i>Contact</a
+        >
+        <hr
+          style="border: 0; border-top: 1px solid var(--border); margin: 10px 0"
+        />
+        <a
+          href="./login.html"
+          class="mobile-item"
+          style="color: var(--text-muted)"
+          >Login</a
+        >
+        <a
+          href="./signup.html"
+          class="mobile-item"
+          style="color: var(--netflix-red)"
+          >Get Started</a
+        >
+      </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Get in touch anytime</h1>
+      </div>
+    </section>
+
+    <div class="section-container">
+      <!-- Contact Cards Section -->
+      <div class="cards-grid">
+        <div class="contact-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"
+              />
+            </svg>
+          </div>
+          <h3 class="card-title">Help & support</h3>
+          <p class="card-desc">
+            Need quick, reliable support? Our team is always ready to help you.
+          </p>
+          <div class="card-footer">support@streamit.com</div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.81 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+          </div>
+          <h3 class="card-title">Call Us</h3>
+          <p class="card-desc">
+            Speak directly to one of our team members for assistance.
+          </p>
+          <div class="card-footer">(145) 5847 9657</div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+              />
+            </svg>
+          </div>
+          <h3 class="card-title">Advertising</h3>
+          <p class="card-desc">
+            Looking to advertise with us? contact our advertising team
+          </p>
+          <div class="card-footer">adds@streamit.com</div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+          <h3 class="card-title">Press Inquiries</h3>
+          <p class="card-desc">
+            For media inquiries or products our press team is here to help.
+          </p>
+          <div class="card-footer">inquiries@streamit.com</div>
+        </div>
+      </div>
+
+      <!-- Form & Sidebar Section -->
+      <div class="main-content-split reveal">
+        <!-- Left: Form -->
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Start the conversation</h2>
+            <p>
+              Fill out the contact form, and one of our team members will be in
+              touch shortly
+            </p>
+          </div>
+          <form class="contact-form" action="./404.html">
+            <div class="form-group">
+              <input type="text" placeholder="First Name *" required />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Last Name *" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email *" required />
+            </div>
+            <div class="form-group">
+              <input type="number" placeholder="Phone Number *" />
+            </div>
+            <div class="form-group full-width">
+              <textarea placeholder="Your Message *" required></textarea>
+            </div>
+            <div class="full-width">
+              <label class="checkbox-container">
+                <input type="checkbox" />
+                Save my name, email, and website in this browser for the next
+                time I comment.
+              </label>
+            </div>
+            <div class="full-width">
+              <button type="submit" class="submit-btn">Send Message</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Info -->
+        <aside class="info-sidebar">
+          <div class="info-block">
+            <h3>Visit Us</h3>
+            <p>If you'd like to visit or write to us:</p>
+            <address>
+              <strong>📍 Address:</strong>
+              Streamit Headquarters 123<br />
+              Streaming Lane, Suite 100 Media City,<br />
+              CA 90210, USA
+            </address>
+          </div>
+
+          <div class="info-block">
+            <h3>Business Inquiries</h3>
+            <p>
+              For partnership opportunities, licensing, or media-related
+              queries, please reach out to our business team.
+            </p>
+            <p><strong>business@streamit.com</strong></p>
+          </div>
+
+          <div class="info-block">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="./404.html" class="social-btn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+              <a href="./404.html" class="social-btn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  />
+                </svg>
+              </a>
+              <a href="./404.html" class="social-btn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537353153166!3d-37.816279742021234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d1a524118f!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1625575556272!5m2!1sen!2sus"
+        allowfullscreen=""
+        loading="lazy"
+      >
+      </iframe>
+    </section>
+    <footer class="secF-footer" id="mainFooter">
+      <div class="secF-overlay"></div>
+
+      <div class="secF-container">
+        <!-- Brand Section -->
+        <div class="secF-col secF-col1">
+          <img
+            src="./assets/logo.webp"
+            alt="logo"
+            onclick="window.location.href = './index.html'"
+          />
+          <p style="max-width: 600px; margin: 0 auto; text-align: center">
+            Experience cinematic excellence with the world's leading streaming
+            platform. Your gateway to unlimited entertainment and award-winning
+            originals.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="secF-col secF-col2">
+          <h3>Explore</h3>
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT US</a>
+          <a href="./blog.html">BLOG</a>
+          <a href="./contact.html">CONTACT</a>
+        </div>
+
+        <!-- Contact & Socials -->
+        <div class="secF-col secF-col3">
+          <h3>Support</h3>
+          <p>Corporate Office, Studio City</p>
+          <p>+91 1800-SCREEN</p>
+          <p>help@cinemareel.com</p>
+
+          <div class="secF-socials">
+            <a href="./404.html" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.8c4.56-.93 8-4.96 8-9.8z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="secF-col secF-col4">
+          <h3>Latest News</h3>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 19, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              Exclusive: Season 5 of "The Unknown" starts production.
+            </p>
+          </div>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 15, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              New spatial audio feature rolling out for all members.
+            </p>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="secF-col secF-col5">
+          <h3>Join the Club</h3>
+          <div class="secF-form-box">
+            <p style="font-size: 0.8rem; margin-bottom: 15px; font-weight: 700">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </p>
+            <form class="secF-form" id="newsletterForm" action="./404.html">
+              <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Email Address"
+                required
+              />
+              <button type="submit">Get Started</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Strip -->
+      <div class="secF-bottom-strip">
+        <div class="secF-bottom-content">
+          <span class="secF-copy-text"
+            >© 2026 STACKLY OTT. ALL RIGHTS RESERVED.</span
+          >
+          <div class="secF-legal-links">
+            <a href="./404.html">PRIVACY POLICY</a>
+            <a href="./404.html">TERMS OF SERVICE</a>
+            <a href="./404.html">COOKIE SETTINGS</a>
+            <a href="./404.html" style="color: var(--film-gold)"
+              >BACK TO TOP ↑</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="secF-toast">
+      <svg style="width: 20px; height: 20px" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+        />
+      </svg>
+      SUCCESS! REDIRECTING...
+    </div>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+      });
+
+      // Reveal elements on scroll
+      function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+          var windowHeight = window.innerHeight;
+          var elementTop = reveals[i].getBoundingClientRect().top;
+          var elementVisible = 150;
+          if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+          }
+        }
+      }
+
+      window.addEventListener("scroll", reveal);
+
+      // Initial call for elements in viewport
+      document.addEventListener("DOMContentLoaded", () => {
+        reveal();
+      });
+
+      // Form handling
+      function handleSubmit(event) {
+        event.preventDefault();
+        const btn = event.target.querySelector(".submit-btn");
+        const originalText = btn.innerText;
+
+        // UI Feedback
+        btn.innerText = "SENDING...";
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+
+        setTimeout(() => {
+          btn.innerText = "MESSAGE SENT!";
+          btn.style.background = "var(--success)";
+          event.target.reset();
+
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "var(--netflix-red)";
+            btn.disabled = false;
+            btn.style.opacity = "1";
+          }, 3000);
+        }, 1500);
+
+        return false;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Streamit OTT Hero Slider - Fully Responsive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      #stackly-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+        overflow: hidden;
+      }
+
+      .stackly-center {
+        position: relative;
+      }
+
+      .stackly-text {
+        font-size: 90px;
+        font-weight: 900;
+        letter-spacing: 8px;
+        color: #111;
+        font-family: "Roboto", sans-serif;
+        animation: stacklyReveal 2s ease forwards;
+      }
+
+      .stackly-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(229, 9, 20, 0.9),
+          transparent
+        );
+        animation: lightSweep 2s ease forwards;
+        filter: blur(20px);
+      }
+
+      @keyframes lightSweep {
+        0% {
+          left: -120%;
+        }
+        100% {
+          left: 120%;
+        }
+      }
+
+      @keyframes stacklyReveal {
+        0% {
+          color: #111;
+          transform: scale(1.3);
+          opacity: 0;
+        }
+
+        40% {
+          color: #400000;
+          opacity: 0.5;
+        }
+
+        70% {
+          color: #e50914;
+          text-shadow:
+            0 0 10px #e50914,
+            0 0 20px #e50914,
+            0 0 40px #e50914;
+        }
+
+        100% {
+          color: #e50914;
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .loader-hide {
+        animation: fadeLoader 1s forwards;
+      }
+
+      @keyframes fadeLoader {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- STACKLY CINEMATIC LOADER -->
+    <div id="stackly-loader">
+      <div class="stackly-center">
+        <h1 class="stackly-text">STACKLY</h1>
+        <div class="stackly-glow"></div>
+      </div>
+    </div>
+    <nav class="film-navbar">
+      <div class="perforations top" id="perf-top"></div>
+      <div class="nav-logo">
+        <div class="logo-img">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            onclick="window.location.href = './index.html'"
+          />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="./index.html" class="nav-item"
+          ><i data-lucide="home"></i><span>Home</span></a
+        >
+        <a href="./about.html" class="nav-item"
+          ><i data-lucide="info"></i><span>About Us</span></a
+        >
+        <a href="./blog.html" class="nav-item"
+          ><i data-lucide="clapperboard"></i><span>Blog</span></a
+        >
+        <a href="./contact.html" class="nav-item"
+          ><i data-lucide="mail"></i><span>Contact</span></a
+        >
+      </div>
+      <div class="nav-actions">
+        <a href="./login.html" class="btn btn-login">Login</a>
+        <a
+          href="./signup.html"
+          class="btn btn-start"
+          style="white-space: nowrap"
+          >Get Started</a
+        >
+      </div>
+      <button class="menu-toggle" id="menu-toggle">
+        <div class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+      <div class="perforations bottom" id="perf-bottom"></div>
+    </nav>
+
+    <!-- Mobile Overlay with its own Close Button -->
+    <div class="mobile-overlay" id="mobile-overlay">
+      <button class="close-overlay-btn" id="close-overlay">
+        <i data-lucide="x" style="width: 30px; height: 30px"></i>
+      </button>
+      <div class="mobile-links">
+        <a href="./index.html" class="mobile-item"
+          ><i data-lucide="home"></i>Home</a
+        >
+        <a href="./about.html" class="mobile-item"
+          ><i data-lucide="info"></i>About Us</a
+        >
+        <a href="./blog.html" class="mobile-item"
+          ><i data-lucide="clapperboard"></i>Blog</a
+        >
+        <a href="./contact.html" class="mobile-item"
+          ><i data-lucide="mail"></i>Contact</a
+        >
+        <hr
+          style="border: 0; border-top: 1px solid var(--border); margin: 10px 0"
+        />
+        <a
+          href="./login.html"
+          class="mobile-item"
+          style="color: var(--text-muted)"
+          >Login</a
+        >
+        <a
+          href="./signup.html"
+          class="mobile-item"
+          style="color: var(--netflix-red)"
+          >Get Started</a
+        >
+      </div>
+    </div>
+    <section class="sec1-hero-container" id="hero-slider">
+      <div class="sec1-bg-wrap" id="bg-wrap"></div>
+      <div class="sec1-overlay"></div>
+
+      <div class="sec1-content-block" id="content-wrap"></div>
+
+      <div class="sec1-floating-panel">
+        <span class="sec1-panel-label" id="panel-state-label"
+          >Explore More</span
+        >
+        <div class="sec1-card-stack" id="card-stack"></div>
+
+        <div class="sec1-controls">
+          <button class="sec1-ctrl-btn" onclick="prevSlide()">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="sec1-ctrl-btn" onclick="nextSlide()">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Section 1: Top 10 (RTL direction now) -->
+    <section id="sec7" class="sec7">
+      <div class="sec-header">
+        <h2 class="sec-title">Top 10 Movies to Watch</h2>
+        <a href="./404.html" class="view-all">View All</a>
+      </div>
+      <div class="sec-wrapper">
+        <div
+          class="nav-btn nav-prev"
+          onclick="manualScroll('sec7-container', -1)"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
+            />
+          </svg>
+        </div>
+        <div class="sec-scroll-container sec7-container" id="sec7-container">
+          <script>
+            const top10 = [
+              {
+                title: "Rabbit",
+                cat: "Kids",
+                img: "https://picsum.photos/seed/r1/400/600",
+              },
+              {
+                title: "Game of Heroes",
+                cat: "Action",
+                img: "https://picsum.photos/seed/r2/400/600",
+              },
+              {
+                title: "Ghosties",
+                cat: "Comedy",
+                img: "https://picsum.photos/seed/r3/400/600",
+              },
+              {
+                title: "Ages of Empire",
+                cat: "History",
+                img: "https://picsum.photos/seed/r4/400/600",
+              },
+              {
+                title: "The Witcher",
+                cat: "Fantasy",
+                img: "https://picsum.photos/seed/r5/400/600",
+              },
+              {
+                title: "Dark Knight",
+                cat: "Action",
+                img: "https://picsum.photos/seed/r6/400/600",
+              },
+              {
+                title: "Inception",
+                cat: "Sci-Fi",
+                img: "https://picsum.photos/seed/r7/400/600",
+              },
+              {
+                title: "The Joker",
+                cat: "Drama",
+                img: "https://picsum.photos/seed/r8/400/600",
+              },
+              {
+                title: "Spider-Man",
+                cat: "Hero",
+                img: "https://picsum.photos/seed/r9/400/600",
+              },
+              {
+                title: "The Lion King",
+                cat: "Classic",
+                img: "https://picsum.photos/seed/r10/400/600",
+              },
+            ];
+
+            document.write(
+              top10
+                .map(
+                  (m, i) => `
+                        <div class="movie-card">
+                           <img src="./assets/top${i + 1}.webp" alt="${m.title}" class="card-img">
+                            <div class="sec7-rank">${i + 1}</div>
+                            <div class="card-overlay">
+                                <div class="overlay-content">
+                                    <span class="category-tag">${m.cat}</span>
+                                    <span class="movie-title">${m.title}</span>
+                                    <div class="meta-row">
+                                        <span>2 h : 15 min</span>
+                                        <span>English (UK)</span>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn btn-watchlist"  onclick="window.location.href = './404.html'">+ Watch List</button>
+                                        <button class="btn btn-play"  onclick="window.location.href = './404.html'">Play Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                )
+                .join(""),
+            );
+          </script>
+        </div>
+        <div
+          class="nav-btn nav-next"
+          onclick="manualScroll('sec7-container', 1)"
+        >
+          <svg viewBox="0 0 24 24">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Available to Rent (LTR) -->
+    <section id="sec2" class="sec2">
+      <div class="sec-header">
+        <h2 class="sec-title">Available to Rent</h2>
+        <a href="./404.html" class="view-all">View All</a>
+      </div>
+      <div class="sec-wrapper">
+        <div class="sec-scroll-container sec2-container" id="sec2-container">
+          <script>
+            for (let i = 0; i < 10; i++) {
+              document.write(`
+                            <div class="movie-card">
+                                <div class="badge">
+                                    <svg viewBox="0 0 24 24" fill="white"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                                </div>
+                                <img src="./assets/rent${i + 1}.webp" class="card-img">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <span class="category-tag">Rent</span>
+                                        <span class="movie-title">Rental Movie ${i + 1}</span>
+                                        <div class="meta-row">
+                                            <span>1 h : 45 min</span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-play"  onclick="window.location.href = './404.html'">Rent Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+            }
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Exclusive (RTL) -->
+    <section id="sec3" class="sec3">
+      <div class="sec-header">
+        <h2 class="sec-title">Exclusive on Streamit</h2>
+        <a href="./404.html" class="view-all">View All</a>
+      </div>
+      <div class="sec-wrapper">
+        <div class="sec-scroll-container sec3-container" id="sec3-container">
+          <script>
+            for (let i = 0; i < 10; i++) {
+              document.write(`
+                            <div class="movie-card">
+                                <img src="./assets/ex${i + 1}.webp" class="card-img">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <span class="category-tag">Exclusive</span>
+                                        <span class="movie-title">Original Title ${i + 1}</span>
+                                        <div class="meta-row">
+                                            <span>Ultra HD</span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-play"  onclick="window.location.href = './404.html'">Watch Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+            }
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Upcoming (LTR) -->
+    <section id="sec8" class="sec8">
+      <div class="sec-header">
+        <h2 class="sec-title">Upcoming Movies</h2>
+        <a href="./404.html" class="view-all">View All</a>
+      </div>
+      <div class="sec-wrapper">
+        <div class="sec-scroll-container sec8-container" id="sec8-container">
+          <script>
+            const upcoming = [
+              "Under Sea",
+              "Lion King",
+              "The BFG",
+              "Superbike",
+              "Cosmic",
+              "Neon",
+              "City Lights",
+              "Deep Blue",
+              "Skyline",
+              "The End",
+            ];
+            upcoming.forEach((t, i) => {
+              document.write(`
+                            <div class="movie-card">
+                                <img src="./assets/up${i + 1}.webp" class="card-img">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <span class="category-tag">Coming Soon</span>
+                                        <span class="movie-title">${t}</span>
+                                        <div class="meta-row">
+                                            <span>Release: 2025</span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-watchlist"  onclick="window.location.href = './404.html'">Reminder</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+            });
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Popular (RTL) -->
+    <section id="sec5" class="sec5">
+      <div class="sec-header">
+        <h2 class="sec-title">Popular Movies</h2>
+        <a href="./404.html" class="view-all">View All</a>
+      </div>
+      <div class="sec-wrapper">
+        <div class="sec-scroll-container sec5-container" id="sec5-container">
+          <script>
+            for (let i = 0; i < 10; i++) {
+              document.write(`
+                            <div class="movie-card">
+                                <img src="./assets/pop${i + 1}.webp" class="card-img">
+                                <div class="card-overlay">
+                                    <div class="overlay-content">
+                                        <span class="category-tag">Popular</span>
+                                        <span class="movie-title">Hit Movie ${i + 1}</span>
+                                        <div class="meta-row">
+                                            <span>4.8 Rating</span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-play"  onclick="window.location.href = './404.html'">Play</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+            }
+          </script>
+        </div>
+      </div>
+    </section>
+    <section class="sec4-pricing-section" id="pricingSection">
+      <!-- Left Side: Static Image -->
+      <div class="sec4-image-container">
+        <img src="./assets/404.webp" alt="Premium Cinema" class="sec4-image" />
+      </div>
+
+      <!-- Right Side: Auto-Sliding Pricing -->
+      <div class="sec4-slider-container">
+        <div class="sec4-slider-wrapper" id="sliderWrapper">
+          <!-- Basic Card -->
+          <div class="sec4-card">
+            <span class="sec4-plan-badge">Entry Level</span>
+            <div class="sec4-price-group">
+              <h2 class="sec4-price">
+                <span class="sec4-currency">$</span>9.99<span
+                  class="sec4-period"
+                  >/mo</span
+                >
+              </h2>
+            </div>
+            <p class="sec4-description">
+              Perfect for mobile viewing and casual streaming in HD quality.
+            </p>
+            <button
+              class="sec4-button"
+              onclick="window.location.href = './404.html'"
+            >
+              Get Started
+            </button>
+
+            <h3 class="sec4-features-title">What's included</h3>
+            <ul class="sec4-features">
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> 720p HD Streaming
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Watch on 1 mobile or
+                tablet
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Ad-free experience
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Cancel any time
+              </li>
+            </ul>
+          </div>
+
+          <!-- Standard Card -->
+          <div class="sec4-card">
+            <span class="sec4-plan-badge">Most Popular</span>
+            <div class="sec4-price-group">
+              <h2 class="sec4-price">
+                <span class="sec4-currency">$</span>15.49<span
+                  class="sec4-period"
+                  >/mo</span
+                >
+              </h2>
+            </div>
+            <p class="sec4-description">
+              The best balance of price and quality for your home cinema.
+            </p>
+            <button class="sec4-button">Choose Standard</button>
+
+            <h3 class="sec4-features-title">Everything in Basic, plus</h3>
+            <ul class="sec4-features">
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> 1080p Full HD Video
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Simultaneous watch on 2
+                devices
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Offline downloads
+                supported
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Early access to new
+                releases
+              </li>
+            </ul>
+          </div>
+
+          <!-- Premium Card -->
+          <div class="sec4-card">
+            <span class="sec4-plan-badge">Ultimate Experience</span>
+            <div class="sec4-price-group">
+              <h2 class="sec4-price">
+                <span class="sec4-currency">$</span>19.99<span
+                  class="sec4-period"
+                  >/mo</span
+                >
+              </h2>
+            </div>
+            <p class="sec4-description">
+              Uncompromised visual and audio fidelity for enthusiasts.
+            </p>
+            <button class="sec4-button">Go Premium</button>
+
+            <h3 class="sec4-features-title">The full suite</h3>
+            <ul class="sec4-features">
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> 4K Ultra HD + HDR10
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Dolby Atmos Spatial
+                Audio
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Watch on 4 devices
+                simultaneously
+              </li>
+              <li class="sec4-feature-item">
+                <span class="sec4-feature-icon">✦</span> Family sharing included
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="secF-footer" id="mainFooter">
+      <div class="secF-overlay"></div>
+
+      <div class="secF-container">
+        <!-- Brand Section -->
+        <div class="secF-col secF-col1">
+          <img
+            src="./assets/logo.webp"
+            alt="logo"
+            onclick="window.location.href = './index.html'"
+          />
+          <p style="max-width: 600px; margin: 0 auto; text-align: center">
+            Experience cinematic excellence with the world's leading streaming
+            platform. Your gateway to unlimited entertainment and award-winning
+            originals.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="secF-col secF-col2">
+          <h3>Explore</h3>
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT US</a>
+          <a href="./blog.html">BLOG</a>
+          <a href="./contact.html">CONTACT</a>
+        </div>
+
+        <!-- Contact & Socials -->
+        <div class="secF-col secF-col3">
+          <h3>Support</h3>
+          <p>Corporate Office, Studio City</p>
+          <p>+91 1800-SCREEN</p>
+          <p>help@cinemareel.com</p>
+
+          <div class="secF-socials">
+            <a href="./404.html" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.8c4.56-.93 8-4.96 8-9.8z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="secF-col secF-col4">
+          <h3>Latest News</h3>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 19, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              Exclusive: Season 5 of "The Unknown" starts production.
+            </p>
+          </div>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 15, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              New spatial audio feature rolling out for all members.
+            </p>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="secF-col secF-col5">
+          <h3>Join the Club</h3>
+          <div class="secF-form-box">
+            <p style="font-size: 0.8rem; margin-bottom: 15px; font-weight: 700">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </p>
+            <form class="secF-form" id="newsletterForm" action="./404.html">
+              <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Email Address"
+                required
+              />
+              <button type="submit">Get Started</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Strip -->
+      <div class="secF-bottom-strip">
+        <div class="secF-bottom-content">
+          <span class="secF-copy-text"
+            >© 2026 STACKLY OTT. ALL RIGHTS RESERVED.</span
+          >
+          <div class="secF-legal-links">
+            <a href="./404.html">PRIVACY POLICY</a>
+            <a href="./404.html">TERMS OF SERVICE</a>
+            <a href="./404.html">COOKIE SETTINGS</a>
+            <a href="./404.html" style="color: var(--film-gold)"
+              >BACK TO TOP ↑</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="secF-toast">
+      <svg style="width: 20px; height: 20px" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+        />
+      </svg>
+      SUCCESS! REDIRECTING...
+    </div>
+    <script>
+      const movies = [
+        {
+          title: "Kung Fu Panda",
+          bg: "./assets/ind1.webp",
+          duration: "45 min",
+          desc: "Po, a lovable panda with a passion for kung fu, travels from an unlikely hero to the powerful Dragon Warrior, mastering ancient arts to save the Valley of Peace.",
+          tags: "Adventure, Animation",
+          genres: "Action, Animation",
+          starring: "Jack Black, Dustin Hoffman",
+          meta: ["4.5 ★", "IMDb", "45 min"],
+          badge: "",
+        },
+        {
+          title: "SU From SO",
+          bg: "./assets/ind2.webp",
+          duration: "2 h : 30 min",
+          desc: "An Humourous Drama and a family package which also contains a social message and purely south canara's culture and tradition.",
+          tags: "Comedy, Adventure, Drama",
+          genres: "Comedy, Adventure",
+          starring: "Raj B shetty, Gautham",
+          meta: ["NC-17", "5 ★", "IMDb", "2 h : 30 min"],
+          badge: "NC-17",
+        },
+        {
+          title: "The First Of Us",
+          bg: "./assets/ind3.webp",
+          duration: "2 h : 59 min",
+          desc: "In a post-apocalyptic world, a small group of survivors uncovers the origins of humanity's downfall while journeying through a desolate landscape.",
+          tags: "Family, Horror",
+          genres: "Action, Adventure",
+          starring: "Jordan Grant, Jeff Bridges",
+          meta: ["NC-17", "4 ★", "IMDb", "2 h : 59 min"],
+          badge: "NC-17",
+        },
+        {
+          title: "Vikings",
+          bg: "./assets/ind4.webp",
+          duration: "Season 2",
+          desc: "Ragnar Lodbrok, a Norse farmer, carries out raids into English territory, eventually holding sway over the Vikings and becoming a Scandinavian king.",
+          tags: "War, History, Drama",
+          genres: "Adventure, Action",
+          starring: "Travis Fimmel, Katheryn Winnick",
+          meta: ["2 Seasons", "4.8 ★", "IMDb"],
+          badge: "2 Seasons",
+        },
+        {
+          title: "Minions Adventure",
+          bg: "./assets/ind5.webp",
+          duration: "1 h : 20 min",
+          desc: "Those yellow mischief-makers are back! Follow the Minions as they search for a new master and cause accidental chaos across the globe.",
+          tags: "Family, Comedy",
+          genres: "Animation, Comedy",
+          starring: "Steve Carell, Pierre Coffin",
+          meta: ["PG", "4.2 ★", "IMDb", "1 h : 20 min"],
+          badge: "PG",
+        },
+      ];
+
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document
+            .getElementById("stackly-loader")
+            .classList.add("loader-hide");
+        }, 2300);
+      });
+
+      let currentIndex = 0;
+      const bgWrap = document.getElementById("bg-wrap");
+      const contentWrap = document.getElementById("content-wrap");
+      const cardStack = document.getElementById("card-stack");
+
+      function initSlider() {
+        movies.forEach((movie, index) => {
+          const bg = document.createElement("div");
+          bg.className = `sec1-bg-slide ${index === 0 ? "active" : ""}`;
+          bg.style.backgroundImage = `url('${movie.bg}')`;
+          bgWrap.appendChild(bg);
+
+          const content = document.createElement("div");
+          content.className = `sec1-content-item ${index === 0 ? "active" : ""}`;
+
+          let metaHTML = "";
+          movie.meta.forEach((m) => {
+            if (m === movie.badge)
+              metaHTML += `<span class="sec1-badge">${m}</span>`;
+            else if (m === "IMDb")
+              metaHTML += `<div class="sec1-imdb-wrap"><span class="sec1-imdb-box">IMDb</span> <span style="color:white; font-weight:700">7.5</span></div>`;
+            else metaHTML += `<span>${m}</span>`;
+          });
+
+          content.innerHTML = `
+                    <h1 class="sec1-title">${movie.title}</h1>
+                    <div class="sec1-meta-row">${metaHTML}</div>
+                    <p class="sec1-description">${movie.desc}</p>
+                    <div class="sec1-details">
+                        <div class="sec1-detail-line"><span class="sec1-label">Tags:</span> ${movie.tags}</div>
+                        <div class="sec1-detail-line"><span class="sec1-label">Genres:</span> ${movie.genres}</div>
+                        <div class="sec1-detail-line"><span class="sec1-label">Starring:</span> ${movie.starring}</div>
+                    </div>
+                    <button class="sec1-play-btn"  onclick="window.location.href = './404.html'">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Play Now
+                    </button>
+                `;
+          contentWrap.appendChild(content);
+        });
+        updateCards();
+      }
+
+      function updateCards() {
+        cardStack.innerHTML = "";
+        for (let i = 0; i < movies.length; i++) {
+          const movie = movies[i];
+          const card = document.createElement("div");
+          card.className = `sec1-nav-card ${i === currentIndex ? "active" : ""}`;
+          card.onclick = () => goToSlide(i);
+
+          card.innerHTML = `
+                    <div class="sec1-card-img-wrap">
+                        <img src="${movie.bg}" alt="${movie.title}" class="sec1-card-img">
+                    </div>
+                    <div class="sec1-card-info">
+                        <div class="sec1-card-title">${movie.title}</div>
+                        <div class="sec1-card-meta">${movie.duration}</div>
+                    </div>
+                `;
+          cardStack.appendChild(card);
+        }
+
+        // Re-order visibility for Desktop
+        if (window.innerWidth > 768) {
+          const allCards = cardStack.children;
+          const nextIdx = (currentIndex + 1) % movies.length;
+          for (let i = 0; i < allCards.length; i++) {
+            allCards[i].style.display =
+              i === currentIndex || i === nextIdx ? "block" : "none";
+          }
+        } else {
+          // On mobile, ensure card is visible and scrolled into view if active
+          const activeCard = cardStack.querySelector(".sec1-nav-card.active");
+          if (activeCard) {
+            activeCard.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          }
+        }
+      }
+
+      function goToSlide(index) {
+        if (index === currentIndex) return;
+        const bgs = document.querySelectorAll(".sec1-bg-slide");
+        const contents = document.querySelectorAll(".sec1-content-item");
+
+        bgs[currentIndex].classList.remove("active");
+        contents[currentIndex].classList.remove("active");
+
+        currentIndex = index;
+
+        bgs[currentIndex].classList.add("active");
+        contents[currentIndex].classList.add("active");
+        updateCards();
+      }
+
+      function nextSlide() {
+        goToSlide((currentIndex + 1) % movies.length);
+      }
+      function prevSlide() {
+        goToSlide((currentIndex - 1 + movies.length) % movies.length);
+      }
+
+      let autoPlay = setInterval(nextSlide, 8000);
+
+      // Pause autoplay on card click
+      cardStack.addEventListener("click", () => {
+        clearInterval(autoPlay);
+        autoPlay = setInterval(nextSlide, 10000); // Resume with longer interval
+      });
+
+      window.addEventListener("resize", updateCards);
+      window.addEventListener("load", initSlider);
+
+      /**
+       * AUTO SLIDING LOGIC
+       */
+      const SCROLL_INTERVAL = 1500; // 1.5 Seconds
+      const containers = document.querySelectorAll(".sec-scroll-container");
+
+      const hoverStates = new Map();
+
+      containers.forEach((container) => {
+        hoverStates.set(container.id, false);
+
+        container.addEventListener("mouseenter", () =>
+          hoverStates.set(container.id, true),
+        );
+        container.addEventListener("mouseleave", () =>
+          hoverStates.set(container.id, false),
+        );
+
+        setInterval(() => {
+          if (hoverStates.get(container.id)) return;
+
+          const card = container.querySelector(".movie-card");
+          if (!card) return;
+
+          const cardWidth = card.offsetWidth + 16;
+          const isRTL =
+            window.getComputedStyle(container).flexDirection === "row-reverse";
+
+          let direction = isRTL ? -1 : 1;
+
+          const isAtEnd = isRTL
+            ? Math.abs(container.scrollLeft) >=
+              container.scrollWidth - container.clientWidth - 10
+            : container.scrollLeft >=
+              container.scrollWidth - container.clientWidth - 10;
+
+          if (isAtEnd) {
+            container.scrollTo({ left: 0, behavior: "smooth" });
+          } else {
+            container.scrollBy({
+              left: cardWidth * direction,
+              behavior: "smooth",
+            });
+          }
+        }, SCROLL_INTERVAL);
+      });
+
+      function manualScroll(containerId, direction) {
+        const container = document.getElementById(containerId);
+        const card = container.querySelector(".movie-card");
+        const cardWidth = (card.offsetWidth + 16) * 2;
+        container.scrollBy({ left: cardWidth * direction, behavior: "smooth" });
+      }
+
+      /**
+       * ANIMATION & UI LOGIC
+       */
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            const cards = entry.target.querySelectorAll(".movie-card");
+            cards.forEach((card, index) => {
+              card.style.transitionDelay = `${index * 0.05}s`;
+            });
+          }
+        });
+      }, observerOptions);
+
+      document
+        .querySelectorAll("section")
+        .forEach((section) => observer.observe(section));
+
+      //   const scrollTopBtn = document.getElementById("scrollTop");
+      //   window.onscroll = function () {
+      //     if (
+      //       document.body.scrollTop > 200 ||
+      //       document.documentElement.scrollTop > 200
+      //     ) {
+      //       scrollTopBtn.style.display = "flex";
+      //     } else {
+      //       scrollTopBtn.style.display = "none";
+      //     }
+      //   };
+      //   scrollTopBtn.onclick = function () {
+      //     window.scrollTo({ top: 0, behavior: "smooth" });
+      //   };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("pricingSection");
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        const totalCards = 3;
+
+        // 1. Smooth Scroll Entrance
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                section.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+
+        observer.observe(section);
+
+        // 2. Auto-Sliding Logic (Looping)
+        // setInterval(() => {
+        //   currentIndex = (currentIndex + 1) % totalCards;
+        //   const offset = currentIndex * -100;
+        //   // Move wrapper (300% wide, so each card is 1/3 of total)
+        //   wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        // }, 1500);
+      });
+    </script>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+  </body>
+</html>

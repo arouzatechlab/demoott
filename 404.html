@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found | Stackly</title>
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+        --disabled: #757575;
+        --success: #46d369;
+        --glow: rgba(229, 9, 20, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: var(--bg-black);
+      }
+
+      /* Background Container with Cinematic Zoom */
+      .bg-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: url("./assets/404.webp") no-repeat center center/cover;
+        animation:
+          cinematicZoom 20s infinite alternate ease-in-out,
+          fadeIn 1.5s ease-out;
+      }
+
+      /* Dark Gradient Overlays */
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.7) 50%,
+          rgba(0, 0, 0, 0.95) 100%
+        );
+      }
+
+      /* Content Centering */
+      .main-content {
+        position: relative;
+        z-index: 3;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .error-card {
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 32px 24px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: contentAppear 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: 0.5s;
+      }
+
+      /* Typography */
+      .error-code {
+        font-size: 80px;
+        font-weight: 900;
+        color: var(--text-primary);
+        line-height: 1;
+        letter-spacing: -2px;
+        margin-bottom: 8px;
+        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .error-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+
+      .error-desc {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Button Styling */
+      .btn-home {
+        display: inline-block;
+        background-color: var(--netflix-red);
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 14px 36px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 15px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-home:hover {
+        background-color: var(--netflix-red-dark);
+        transform: scale(1.06);
+        box-shadow: 0 0 25px var(--glow);
+      }
+
+      .btn-home:active {
+        transform: scale(0.98);
+      }
+
+      /* Branding Subtle */
+      .brand-watermark {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        z-index: 4;
+        opacity: 0.8;
+      }
+
+      .brand-text {
+        color: var(--netflix-red);
+        font-weight: 900;
+        font-size: 24px;
+        letter-spacing: -1px;
+      }
+
+      /* Animations */
+      @keyframes cinematicZoom {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.08);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes contentAppear {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Desktop Adjustments */
+      @media (min-width: 768px) {
+        .error-card {
+          padding: 60px 50px;
+          max-width: 650px;
+        }
+        .error-code {
+          font-size: 140px;
+        }
+        .error-title {
+          font-size: 32px;
+        }
+        .error-desc {
+          font-size: 18px;
+          max-width: 450px;
+        }
+        .btn-home {
+          font-size: 17px;
+          padding: 16px 48px;
+        }
+      }
+
+      /* High Resolution Screens */
+      @media (min-width: 1440px) {
+        .error-code {
+          font-size: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="brand-watermark">
+      <span class="brand-text">STACKLY</span>
+    </div>
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <div class="error-card">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Page Not Found</h2>
+        <p class="error-desc">
+          Oops! It seems you are lost. The requested page could not be located
+          in our library.
+        </p>
+        <a href="./index.html" class="btn-home">BACK TO HOME</a>
+      </div>
+    </main>
+
+    <script>
+      // Simple script to handle parallax or orientation-based movement for extra immersion
+      document.addEventListener("mousemove", (e) => {
+        const x = (window.innerWidth / 2 - e.pageX) / 50;
+        const y = (window.innerHeight / 2 - e.pageY) / 50;
+        const bg = document.querySelector(".bg-container");
+        // Apply slight offset to the zoom animation to feel responsive to mouse
+        bg.style.transform = `scale(1.05) translate(${x}px, ${y}px)`;
+      });
+    </script>
+  </body>
+</html>

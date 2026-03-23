@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Streamit - Latest Articles & Insights</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+        --disabled: #757575;
+        --success: #46d369;
+        --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        line-height: 1.5;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 45vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        background: var(--bg-black);
+        margin-top: var(--nav-height);
+      }
+
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("./assets/404.webp");
+        background-size: cover;
+        background-position: center;
+        transform: scale(1);
+        animation: heroZoom 20s infinite alternate;
+        z-index: 1;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.6) 0%,
+          rgba(20, 20, 20, 0.95) 100%
+        );
+        z-index: 2;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 3;
+        padding: 0 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s forwards 0.3s;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+      }
+
+      .hero p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 25px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        background: var(--netflix-red);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        background: var(--netflix-red-dark);
+        transform: scale(1.05);
+      }
+
+      /* --- MAIN LAYOUT --- */
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      /* --- BLOG GRID --- */
+      .blog-section {
+        width: 100%;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .blog-card {
+        background: transparent;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      .blog-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-inner:hover {
+        transform: translateY(-6px);
+      }
+
+      .image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        border-radius: 8px;
+      }
+
+      .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .card-inner:hover .image-wrapper img {
+        transform: scale(1.08);
+      }
+
+      .card-meta {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .card-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .blog-card h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 10px 0;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .blog-card h3:hover {
+        color: var(--netflix-red);
+      }
+
+      .blog-card p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .read-more {
+        color: var(--netflix-red);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: var(--transition);
+      }
+
+      .read-more:hover {
+        text-decoration: underline;
+        transform: translateX(6px);
+      }
+
+      /* --- SIDEBAR --- */
+      .sidebar {
+        width: 100%;
+      }
+
+      .sidebar-widget {
+        background: var(--bg-card);
+        padding: 24px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border: 1px solid transparent;
+        transition: border 0.3s ease;
+      }
+
+      .sidebar-widget:hover {
+        border-color: var(--border);
+      }
+
+      .widget-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--netflix-red);
+        display: inline-block;
+      }
+
+      /* Search Widget */
+      .search-box {
+        display: flex;
+        height: 45px;
+      }
+
+      .search-box input {
+        flex: 1;
+        background: var(--bg-black);
+        border: 1px solid var(--border);
+        border-right: none;
+        padding: 0 15px;
+        color: white;
+        border-radius: 4px 0 0 4px;
+        outline: none;
+      }
+
+      .search-box button {
+        background: var(--netflix-red);
+        color: white;
+        border: none;
+        padding: 0 20px;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .search-box button:hover {
+        background: var(--netflix-red-dark);
+      }
+
+      /* Lists Widgets */
+      .widget-list {
+        list-style: none;
+      }
+
+      .widget-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .widget-list li:last-child {
+        border-bottom: none;
+      }
+
+      .widget-list a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .widget-list a:hover {
+        color: var(--netflix-red);
+      }
+
+      /* Recent Comments Widget */
+      .comment-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 15px;
+      }
+
+      .avatar {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: var(--netflix-red);
+        flex-shrink: 0;
+      }
+
+      .comment-content {
+        font-size: 13px;
+      }
+
+      .comment-author {
+        font-weight: 600;
+        color: white;
+      }
+
+      .comment-target {
+        color: var(--netflix-red);
+        text-decoration: none;
+      }
+
+      /* Tags Widget */
+      .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag-pill {
+        background: var(--bg-light);
+        color: var(--text-muted);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 12px;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .tag-pill:hover {
+        background: var(--netflix-red);
+        color: white;
+      }
+
+      /* Newsletter Widget */
+      .newsletter-box {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .newsletter-box input {
+        background: var(--bg-black);
+        border: 1px solid var(--border);
+        padding: 12px;
+        color: white;
+        border-radius: 4px;
+        outline: none;
+      }
+
+      .newsletter-box button {
+        width: 100%;
+      }
+
+      /* --- LOAD MORE --- */
+      .load-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      /* --- ANIMATIONS --- */
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes heroZoom {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+
+      /* --- RESPONSIVENESS --- */
+      @media (min-width: 768px) {
+        .hero {
+          height: 50vh;
+        }
+        .hero h1 {
+          font-size: 40px;
+        }
+        .blog-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero {
+          height: 55vh;
+        }
+        .hero h1 {
+          font-size: 48px;
+        }
+        .container {
+          flex-direction: row;
+          padding: 60px 40px;
+        }
+        .blog-section {
+          width: 70%;
+        }
+        .sidebar {
+          width: 30%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="film-navbar">
+      <div class="perforations top" id="perf-top"></div>
+      <div class="nav-logo">
+        <div class="logo-img">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            onclick="window.location.href = './index.html'"
+          />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="./index.html" class="nav-item"
+          ><i data-lucide="home"></i><span>Home</span></a
+        >
+        <a href="./about.html" class="nav-item"
+          ><i data-lucide="info"></i><span>About Us</span></a
+        >
+        <a href="./blog.html" class="nav-item"
+          ><i data-lucide="clapperboard"></i><span>Blog</span></a
+        >
+        <a href="./contact.html" class="nav-item"
+          ><i data-lucide="mail"></i><span>Contact</span></a
+        >
+      </div>
+      <div class="nav-actions">
+        <a href="./login.html" class="btn btn-login">Login</a>
+        <a href="./signup.html" class="btn btn-start">Get Started</a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">
+        <div class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+      <div class="perforations bottom" id="perf-bottom"></div>
+    </nav>
+
+    <!-- Mobile Overlay with its own Close Button -->
+    <div class="mobile-overlay" id="mobile-overlay">
+      <button class="close-overlay-btn" id="close-overlay">
+        <i data-lucide="x" style="width: 30px; height: 30px"></i>
+      </button>
+      <div class="mobile-links">
+        <a href="./index.html" class="mobile-item"
+          ><i data-lucide="home"></i>Home</a
+        >
+        <a href="./about.html" class="mobile-item"
+          ><i data-lucide="info"></i>About Us</a
+        >
+        <a href="./blog.html" class="mobile-item"
+          ><i data-lucide="clapperboard"></i>Blog</a
+        >
+        <a href="./contact.html" class="mobile-item"
+          ><i data-lucide="mail"></i>Contact</a
+        >
+        <hr
+          style="border: 0; border-top: 1px solid var(--border); margin: 10px 0"
+        />
+        <a
+          href="./login.html"
+          class="mobile-item"
+          style="color: var(--text-muted)"
+          >Login</a
+        >
+        <a
+          href="./signup.html"
+          class="mobile-item"
+          style="color: var(--netflix-red)"
+          >Get Started</a
+        >
+      </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Latest Articles & Insights</h1>
+        <p>
+          Explore stories, trends, and insights from the world of streaming,
+          cinematic technology, and creative storytelling.
+        </p>
+        <a href="#blog-grid" class="btn-primary">Explore Blogs</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Main Blog Section -->
+      <main class="blog-section">
+        <div class="blog-grid" id="blog-grid">
+          <!-- Post 1 -->
+          <article class="blog-card" data-delay="0.1">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/b1.webp" alt="Anthology Series" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Anthology Series Stories Keeping Us Guessing</h3>
+              <p>
+                An anthology series filled with captivating stories that keep us
+                guessing till the end. Featuring diverse, gripping stories that
+                keep viewers on the edge of their seats...
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="blog-card" data-delay="0.2">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/b2.webp" alt="Special Effects" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Special Effects Bringing Movies to Life</h3>
+              <p>
+                Special effects transform ordinary scenes into breathtaking
+                visuals, bringing movies to life with magic and realism. They
+                create unforgettable cinematic experiences...
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="blog-card" data-delay="0.1">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/b3.webp" alt="Cliffhangers" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Cliffhangers TV's Secret Hooking Art</h3>
+              <p>
+                Praesent iaculis, purus ac vehicula mattis, arcu lorem blandit
+                nisl, non laoreet dui mi eget elit. Donec porttitor ex vel augue
+                maximus luctus...
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+
+          <!-- Post 4 -->
+          <article class="blog-card" data-delay="0.2">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/b4.webp" alt="On-Screen Duos" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Legendary On-Screen Duos That Endured</h3>
+              <p>
+                Explore the chemistry behind cinema's most famous partnerships.
+                From classic Hollywood to modern blockbusters, these duos
+                defined genres...
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+
+          <!-- Post 5 -->
+          <article class="blog-card" data-delay="0.1">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/404.webp" alt="Short Films" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Short Films Thrive on Streaming Platforms</h3>
+              <p>
+                Learn how short films are finding a new audience and changing
+                the entertainment landscape through independent streaming apps.
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+
+          <!-- Post 6 -->
+          <article class="blog-card" data-delay="0.2">
+            <div class="card-inner">
+              <div class="image-wrapper">
+                <img src="./assets/b5.webp" alt="Book Adaptations" />
+              </div>
+              <div class="card-meta">
+                <span>👤 Jenny</span>
+                <span>📅 January 10, 2025</span>
+              </div>
+              <h3>Top Book Adaptations Streaming Now</h3>
+              <p>
+                Discover the top book adaptations streaming now, bringing
+                beloved stories from page to screen with captivating,
+                high-budget performances.
+              </p>
+              <a href="./404.html" class="read-more">Read More &gt;</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="load-more-container">
+          <button class="btn-primary">Load More</button>
+        </div>
+      </main>
+
+      <!-- Sidebar Section -->
+      <aside class="sidebar">
+        <!-- Search -->
+        <div class="sidebar-widget">
+          <h4 class="widget-title">Search</h4>
+          <div class="search-box">
+            <input type="text" placeholder="Search articles..." />
+            <button>Search</button>
+          </div>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="sidebar-widget">
+          <h4 class="widget-title">Recent Posts</h4>
+          <ul class="widget-list">
+            <li>
+              <a href="./404.html"
+                >Anthology Series Stories Keeping Us Guessing</a
+              >
+            </li>
+            <li>
+              <a href="./404.html">Special Effects Bringing Movies to Life</a>
+            </li>
+            <li>
+              <a href="./404.html">Cliffhangers TV's Secret Hooking Art</a>
+            </li>
+            <li>
+              <a href="./404.html">Legendary On-Screen Duos That Endured</a>
+            </li>
+            <li>
+              <a href="./404.html">Short Films Thrive on Streaming Platforms</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Recent Comments -->
+        <div class="sidebar-widget">
+          <h4 class="widget-title">Recent Comments</h4>
+          <div class="comment-item">
+            <div class="avatar">M</div>
+            <div class="comment-content">
+              <span class="comment-author">Marvin McKinney</span> on
+              <a href="./404.html" class="comment-target"
+                >Anthology Series Stories</a
+              >
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="avatar">M</div>
+            <div class="comment-content">
+              <span class="comment-author">Marvin McKinney</span> on
+              <a href="./404.html" class="comment-target">Box Office Shifts</a>
+            </div>
+          </div>
+          <div class="comment-item">
+            <div class="avatar">W</div>
+            <div class="comment-content">
+              <span class="comment-author">A WordPress Commenter</span> on
+              <a href="./404.html" class="comment-target"
+                >Global Cinema Influence</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="sidebar-widget">
+          <h4 class="widget-title">Categories</h4>
+          <ul class="widget-list">
+            <li><a href="./404.html">Dramas</a></li>
+            <li><a href="./404.html">Historical</a></li>
+            <li><a href="./404.html">Movie Trailers</a></li>
+            <li><a href="./404.html">TV Comedies</a></li>
+            <li><a href="./404.html">TV Rumors</a></li>
+          </ul>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-widget">
+          <h4 class="widget-title">Tags</h4>
+          <div class="tags-container">
+            <a href="./404.html" class="tag-pill">comedy</a>
+            <a href="./404.html" class="tag-pill">Comedies</a>
+            <a href="./404.html" class="tag-pill">Drama</a>
+            <a href="./404.html" class="tag-pill">Historical</a>
+            <a href="./404.html" class="tag-pill">Horror</a>
+            <a href="./404.html" class="tag-pill">Thriller</a>
+            <a href="./404.html" class="tag-pill">TV Series</a>
+          </div>
+        </div>
+
+        <!-- Subscribe -->
+        <form class="sidebar-widget" action="./404.html">
+          <h4 class="widget-title">Subscribe Newsletter</h4>
+
+          <div class="newsletter-box">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              required
+            />
+            <button type="submit" class="btn-primary">Subscribe</button>
+          </div>
+        </form>
+      </aside>
+    </div>
+    <footer class="secF-footer" id="mainFooter">
+      <div class="secF-overlay"></div>
+
+      <div class="secF-container">
+        <!-- Brand Section -->
+        <div class="secF-col secF-col1">
+          <img
+            src="./assets/logo.webp"
+            alt="logo"
+            onclick="window.location.href = './index.html'"
+          />
+          <p style="max-width: 600px; margin: 0 auto; text-align: center">
+            Experience cinematic excellence with the world's leading streaming
+            platform. Your gateway to unlimited entertainment and award-winning
+            originals.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="secF-col secF-col2">
+          <h3>Explore</h3>
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT US</a>
+          <a href="./blog.html">BLOG</a>
+          <a href="./contact.html">CONTACT</a>
+        </div>
+
+        <!-- Contact & Socials -->
+        <div class="secF-col secF-col3">
+          <h3>Support</h3>
+          <p>Corporate Office, Studio City</p>
+          <p>+91 1800-SCREEN</p>
+          <p>help@cinemareel.com</p>
+
+          <div class="secF-socials">
+            <a href="./404.html" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.8c4.56-.93 8-4.96 8-9.8z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="secF-col secF-col4">
+          <h3>Latest News</h3>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 19, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              Exclusive: Season 5 of "The Unknown" starts production.
+            </p>
+          </div>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 15, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              New spatial audio feature rolling out for all members.
+            </p>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="secF-col secF-col5">
+          <h3>Join the Club</h3>
+          <div class="secF-form-box">
+            <p style="font-size: 0.8rem; margin-bottom: 15px; font-weight: 700">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </p>
+            <form class="secF-form" id="newsletterForm" action="./404.html">
+              <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Email Address"
+                required
+              />
+              <button type="submit">Get Started</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Strip -->
+      <div class="secF-bottom-strip">
+        <div class="secF-bottom-content">
+          <span class="secF-copy-text"
+            >© 2026 STACKLY OTT. ALL RIGHTS RESERVED.</span
+          >
+          <div class="secF-legal-links">
+            <a href="./404.html">PRIVACY POLICY</a>
+            <a href="./404.html">TERMS OF SERVICE</a>
+            <a href="./404.html">COOKIE SETTINGS</a>
+            <a href="./404.html" style="color: var(--film-gold)"
+              >BACK TO TOP ↑</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="secF-toast">
+      <svg style="width: 20px; height: 20px" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+        />
+      </svg>
+      SUCCESS! REDIRECTING...
+    </div>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              const delay = entry.target.getAttribute("data-delay") || 0;
+              setTimeout(() => {
+                entry.target.classList.add("visible");
+              }, delay * 1000);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        // Observe all blog cards and widgets
+        document
+          .querySelectorAll(".blog-card, .sidebar-widget")
+          .forEach((el) => {
+            observer.observe(el);
+          });
+
+        // Smooth Scroll for Hero Button
+        document
+          .querySelector('.btn-primary[href^="#"]')
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+
+        // "Load More" Mock Interaction
+        const loadMoreBtn = document.querySelector(
+          ".load-more-container .btn-primary",
+        );
+        loadMoreBtn.addEventListener("click", () => {
+          loadMoreBtn.textContent = "Loading...";
+          loadMoreBtn.style.opacity = "0.7";
+
+          setTimeout(() => {
+            loadMoreBtn.textContent = "No more posts";
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.style.background = "var(--disabled)";
+            loadMoreBtn.style.cursor = "default";
+          }, 1500);
+        });
+      });
+    </script>
+  </body>
+</html>

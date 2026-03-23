@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Stackly Stream</title>
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+        --disabled: #757575;
+        --success: #46d369;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body,
+      html {
+        height: 100%;
+        background-color: var(--bg-black);
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
+
+      /* Wrapper with Background Image */
+      .stklyott-wrapper {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)),
+          url("./assets/404.webp");
+        background-size: cover;
+        background-position: center;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Main Container for Desktop Side-by-Side */
+      .stklyott-container {
+        display: flex;
+        width: 90%;
+        max-width: 1000px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 8px;
+        overflow: hidden;
+        animation: slideUp 0.6s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Left Side Content (Desktop Only) */
+      .stklyott-hero-side {
+        flex: 1;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
+      }
+
+      .stklyott-hero-side h1 {
+        font-size: 3rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .stklyott-hero-side p {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+      }
+
+      /* Login Card */
+      .stklyott-card {
+        width: 450px;
+        background-color: var(--bg-card);
+        padding: 60px 68px 40px;
+        border-radius: 6px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+      }
+
+      .stklyott-card:hover {
+        transform: scale(1.01);
+      }
+
+      .stklyott-logo {
+        color: var(--netflix-red);
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 30px;
+        display: block;
+      }
+
+      .stklyott-card h2 {
+        font-size: 2rem;
+        margin-bottom: 28px;
+        font-weight: 700;
+      }
+
+      /* Form Styling */
+      .stklyott-form-group {
+        margin-bottom: 16px;
+        position: relative;
+      }
+
+      .stklyott-input,
+      .stklyott-select {
+        width: 100%;
+        height: 50px;
+        background: var(--bg-light);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0 20px;
+        color: white;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      .stklyott-input:focus,
+      .stklyott-select:focus {
+        border-color: var(--netflix-red);
+      }
+
+      .stklyott-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      /* Role Select Appearance */
+      .stklyott-select {
+        appearance: none;
+        cursor: pointer;
+      }
+
+      /* Login Button */
+      .stklyott-btn {
+        width: 100%;
+        height: 50px;
+        background: var(--netflix-red);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 24px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: transform 0.1s active;
+      }
+
+      .stklyott-btn::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background: var(--netflix-red-dark);
+        transition: height 0.4s ease;
+        z-index: -1;
+      }
+
+      .stklyott-btn:hover::before {
+        height: 100%;
+      }
+
+      .stklyott-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* Helpers */
+      .stklyott-helpers {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .stklyott-checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .stklyott-checkbox-container input {
+        margin-right: 8px;
+        accent-color: var(--text-muted);
+      }
+
+      .stklyott-link {
+        text-decoration: none;
+        color: var(--text-muted);
+        transition: color 0.3s;
+      }
+
+      .stklyott-link:hover {
+        text-decoration: underline;
+        color: white;
+      }
+
+      /* Signup Section */
+      .stklyott-signup-text {
+        margin-top: 25px;
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .stklyott-signup-link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .stklyott-signup-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Social Login */
+      .stklyott-divider {
+        margin: 30px 0 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .stklyott-divider span {
+        background: var(--bg-card);
+        padding: 0 10px;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .stklyott-divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        z-index: 1;
+      }
+
+      .stklyott-social-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stklyott-social-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .stklyott-social-btn:hover {
+        background: var(--netflix-red);
+        border-color: var(--netflix-red);
+      }
+
+      /* Feedback Message */
+      .stklyott-message {
+        margin-top: 15px;
+        font-size: 0.85rem;
+        text-align: center;
+        min-height: 1.2rem;
+      }
+
+      .error {
+        color: var(--netflix-red);
+      }
+      .success {
+        color: var(--success);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1000px) {
+        .stklyott-hero-side {
+          display: none;
+        }
+        .stklyott-container {
+          justify-content: center;
+          background: transparent;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .stklyott-wrapper {
+          background: var(--bg-black);
+          align-items: flex-start;
+          padding-top: 20px;
+        }
+        .stklyott-card {
+          width: 100%;
+          padding: 30px 20px;
+          box-shadow: none;
+        }
+        .stklyott-container {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stklyott-wrapper">
+      <div class="stklyott-container">
+        <!-- Left Side Content -->
+        <div class="stklyott-hero-side">
+          <span class="stklyott-logo">STACKLY STREAM</span>
+          <h1>Unlimited movies, TV shows and more</h1>
+          <p>Watch anywhere. Cancel anytime.</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="stklyott-card">
+          <span class="stklyott-logo" style="margin-bottom: 10px; display: none"
+            >STACKLY STREAM</span
+          >
+          <h2>Sign In</h2>
+
+          <!-- added autocomplete="off" to prevent pre-filled credentials -->
+          <form id="loginForm" autocomplete="off">
+            <div class="stklyott-form-group">
+              <select id="role" class="stklyott-select" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="Viewer">Viewer</option>
+                <option value="Creator">Creator</option>
+              </select>
+            </div>
+
+            <div class="stklyott-form-group">
+              <input
+                type="email"
+                id="email"
+                class="stklyott-input"
+                placeholder="Email or phone number"
+                required
+                autocomplete="new-password"
+              />
+            </div>
+
+            <div class="stklyott-form-group">
+              <input
+                type="password"
+                id="password"
+                class="stklyott-input"
+                placeholder="Password"
+                required
+                autocomplete="new-password"
+              />
+            </div>
+
+            <button type="submit" class="stklyott-btn">Sign In</button>
+
+            <div class="stklyott-helpers">
+              <label class="stklyott-checkbox-container">
+                <input type="checkbox" checked /> Remember me
+              </label>
+              <a href="./404.html" class="stklyott-link">Forgot password?</a>
+            </div>
+          </form>
+
+          <div id="feedback" class="stklyott-message"></div>
+
+          <div class="stklyott-signup-text">
+            New to Stackly Stream?
+            <a href="./signup.html" class="stklyott-signup-link">Sign up now</a
+            >.
+          </div>
+
+          <div class="stklyott-divider">
+            <span>Or sign in with</span>
+          </div>
+
+          <div class="stklyott-social-grid">
+            <button
+              class="stklyott-social-btn"
+              onclick="window.location.href = './404.html'"
+            >
+              Google
+            </button>
+            <button
+              class="stklyott-social-btn"
+              onclick="window.location.href = './404.html'"
+            >
+              Facebook
+            </button>
+            <button
+              class="stklyott-social-btn"
+              onclick="window.location.href = './404.html'"
+            >
+              Twitter
+            </button>
+            <button
+              class="stklyott-social-btn"
+              onclick="window.location.href = './404.html'"
+            >
+              LinkedIn
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Clear inputs on window load to ensure a fresh form
+      window.onload = function () {
+        document.getElementById("loginForm").reset();
+      };
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get Form Data
+          const role = document.getElementById("role").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const feedback = document.getElementById("feedback");
+
+          // Simple validation feedback
+          if (!role || !email || !password) {
+            feedback.textContent = "Please fill in all fields.";
+            feedback.className = "stklyott-message error";
+            return;
+          }
+
+          // --- Logic Preservation (As Requested) ---
+
+          // 1. Store user in localStorage
+          const user = {
+            email: email,
+            role: role,
+            loginTime: new Date().toISOString(),
+          };
+          localStorage.setItem("stkly_user", JSON.stringify(user));
+
+          feedback.textContent = "Signing in...";
+          feedback.className = "stklyott-message success";
+
+          // 2. Redirect based on role
+          setTimeout(() => {
+            if (role === "Viewer") {
+              window.location.href = "viewer-dashboard.html";
+            } else if (role === "Creator") {
+              window.location.href = "creator-dashboard.html";
+            }
+          }, 1000);
+        });
+    </script>
+  </body>
+</html>

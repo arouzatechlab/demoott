@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Stackly | Premium OTT Experience</title>
+    <!-- Phosphor Icons for that clean OTT look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+        --disabled: #757575;
+        --success: #46d369;
+        --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- UTILITIES & ANIMATIONS --- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: var(--transition);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: var(--transition);
+      }
+
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: var(--transition);
+      }
+
+      .reveal-left.active,
+      .reveal-right.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      section {
+        padding: 80px 16px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        height: 50vh;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), rgba(20, 20, 20, 1)),
+          url("./assets/404.webp") center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 20px;
+        margin-top: var(--nav-height);
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* --- ABOUT INTRO --- */
+      .intro {
+        text-align: center;
+        max-width: 900px;
+      }
+
+      .intro h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+
+      .intro p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      /* --- FEATURES GRID --- */
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .feature-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 30px;
+        display: flex;
+        gap: 20px;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .feature-card:hover {
+        border-color: var(--netflix-red);
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(229, 9, 20, 0.1);
+      }
+
+      .feature-card i {
+        color: var(--netflix-red);
+        font-size: 32px;
+        flex-shrink: 0;
+      }
+
+      .feature-card .content h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .feature-card .content p {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .highlight-red {
+        color: var(--netflix-red);
+      }
+
+      /* --- WHY CHOOSE --- */
+      .why-choose {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .why-image {
+        width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .why-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 1.5s ease;
+      }
+
+      .why-image:hover img {
+        transform: scale(1.05);
+      }
+
+      .why-content h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .why-item {
+        display: flex;
+        gap: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .why-item:last-child {
+        border-bottom: none;
+      }
+
+      .why-icon {
+        background: var(--bg-light);
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .why-text h4 {
+        font-size: 18px;
+      }
+      .why-text p {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      /* --- TEAM SECTION --- */
+      .team-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .team-header p {
+        color: var(--text-muted);
+        margin-top: 8px;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 30px;
+      }
+
+      .team-card {
+        text-align: left;
+        overflow: hidden;
+      }
+
+      .team-img-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background: var(--bg-light);
+      }
+
+      .team-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(0.2);
+        transition: var(--transition);
+      }
+
+      /* Hover Social Icons Overlay */
+      .team-social-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(229, 9, 20, 0.9),
+          rgba(0, 0, 0, 0.4)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        opacity: 0;
+        transition: var(--transition);
+        transform: translateY(100%);
+      }
+
+      .team-social-overlay a {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 20px;
+        transition: 0.3s ease;
+        transform: translateY(20px);
+      }
+
+      .team-social-overlay a:hover {
+        background: white;
+        color: var(--netflix-red);
+      }
+
+      .team-card:hover .team-social-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .team-card:hover .team-social-overlay a {
+        transform: translateY(0);
+      }
+
+      /* Staggered social icons animation */
+      .team-card:hover .team-social-overlay a:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      .team-card:hover .team-social-overlay a:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+      .team-card:hover .team-social-overlay a:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+      .team-card:hover .team-social-overlay a:nth-child(4) {
+        transition-delay: 0.25s;
+      }
+
+      .team-card:hover img {
+        transform: scale(1.1);
+        filter: grayscale(0);
+      }
+
+      .team-info .role {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .team-info .name {
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      /* --- CONNECT SECTION --- */
+      .connect {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .map-wrapper {
+        opacity: 0.8;
+        transition: var(--transition);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .map-wrapper:hover {
+        opacity: 1;
+      }
+
+      .map-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        min-height: 300px;
+        background: var(--bg-card);
+      }
+
+      .connect-content h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
+      .connect-list {
+        list-style: none;
+      }
+      .connect-list li {
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+      .connect-list span {
+        font-weight: bold;
+        margin-right: 8px;
+      }
+      .connect-list a {
+        color: var(--netflix-red);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* --- CTA BANNER --- */
+      .cta-section {
+        max-width: 100%;
+        padding: 0;
+        margin: 80px 0;
+      }
+
+      .cta-banner {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+          url("https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop")
+            center/cover;
+        padding: 100px 20px;
+        text-align: center;
+        border-radius: 0;
+      }
+
+      .cta-banner h2 {
+        font-size: clamp(24px, 4vw, 42px);
+        margin-bottom: 15px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-banner p {
+        color: var(--text-muted);
+        margin-bottom: 30px;
+      }
+
+      .btn-red {
+        background: var(--netflix-red);
+        color: white;
+        padding: 16px 40px;
+        border: none;
+        border-radius: 4px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      .btn-red:hover {
+        background: var(--netflix-red-dark);
+      }
+
+      /* --- RESPONSIVE DESKTOP --- */
+      @media (min-width: 1024px) {
+        section {
+          padding: 120px 20px;
+        }
+        .hero {
+          height: 60vh;
+        }
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .why-choose {
+          flex-direction: row;
+          align-items: center;
+        }
+        .why-image,
+        .why-content {
+          flex: 1;
+        }
+        .connect {
+          flex-direction: row;
+          align-items: center;
+        }
+        .map-wrapper,
+        .connect-content {
+          flex: 1;
+        }
+        .team-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .why-content h2 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="film-navbar">
+      <div class="perforations top" id="perf-top"></div>
+      <div class="nav-logo">
+        <div class="logo-img">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            onclick="window.location.href = './index.html'"
+          />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="./index.html" class="nav-item"
+          ><i data-lucide="home"></i><span>Home</span></a
+        >
+        <a href="./about.html" class="nav-item"
+          ><i data-lucide="info"></i><span>About Us</span></a
+        >
+        <a href="./blog.html" class="nav-item"
+          ><i data-lucide="clapperboard"></i><span>Blog</span></a
+        >
+        <a href="./contact.html" class="nav-item"
+          ><i data-lucide="mail"></i><span>Contact</span></a
+        >
+      </div>
+      <div class="nav-actions">
+        <a href="./login.html" class="btn btn-login">Login</a>
+        <a href="./signup.html" class="btn btn-start">Get Started</a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">
+        <div class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+      <div class="perforations bottom" id="perf-bottom"></div>
+    </nav>
+
+    <!-- Mobile Overlay with its own Close Button -->
+    <div class="mobile-overlay" id="mobile-overlay">
+      <button class="close-overlay-btn" id="close-overlay">
+        <i data-lucide="x" style="width: 30px; height: 30px"></i>
+      </button>
+      <div class="mobile-links">
+        <a href="./index.html" class="mobile-item"
+          ><i data-lucide="home"></i>Home</a
+        >
+        <a href="./about.html" class="mobile-item"
+          ><i data-lucide="info"></i>About Us</a
+        >
+        <a href="./blog.html" class="mobile-item"
+          ><i data-lucide="clapperboard"></i>Blog</a
+        >
+        <a href="./contact.html" class="mobile-item"
+          ><i data-lucide="mail"></i>Contact</a
+        >
+        <hr
+          style="border: 0; border-top: 1px solid var(--border); margin: 10px 0"
+        />
+        <a
+          href="./login.html"
+          class="mobile-item"
+          style="color: var(--text-muted)"
+          >Login</a
+        >
+        <a
+          href="./signup.html"
+          class="mobile-item"
+          style="color: var(--netflix-red)"
+          >Get Started</a
+        >
+      </div>
+    </div>
+    <!-- Hero Section -->
+    <header class="hero">
+      <h1 class="reveal active">About Stackly OTT Platform</h1>
+    </header>
+
+    <!-- About Intro -->
+    <section class="intro reveal">
+      <h2>Welcome to Stackly</h2>
+      <p>
+        Welcome to Stackly, a next-generation streaming platform proudly
+        developed by Iqonic Design. We specialize in creating cutting-edge
+        digital solutions, and Streamit is our latest breakthrough in the world
+        of online entertainment. Whether you're a movie lover, a TV show
+        binge-watcher, or enjoy live events, our platform is designed to deliver
+        high-quality content directly to your device, ensuring a seamless,
+        uninterrupted experience.
+      </p>
+      <p>
+        At Iqonic Design, we aim to revolutionize digital content consumption
+        with Streamit, a fast, reliable, and personalized streaming platform.
+        Built with cutting-edge technology, it offers superior streaming
+        quality, tailored recommendations, and an intuitive content management
+        system. Our mission is to make entertainment seamless and accessible,
+        anytime, anywhere.
+      </p>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features">
+      <div class="features-grid" onclick="window.location.href = './404.html'">
+        <div class="feature-card reveal" style="transition-delay: 0.1s">
+          <i class="ph-bold ph-skip-back-circle"></i>
+          <div class="content">
+            <h3>Smart Playback Controls</h3>
+            <p>
+              Deliver responsive play, pause, resume, and
+              <span class="highlight-red">adaptive streaming</span> for a
+              premium experience across all devices.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.2s">
+          <i class="ph-bold ph-monitor-play"></i>
+          <div class="content">
+            <h3>Video Streaming Without Interruptions</h3>
+            <p>
+              HD and adaptive bitrate streaming designed to reduce buffering
+              during traffic spikes.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.3s">
+          <i class="ph-bold ph-play-circle"></i>
+          <div class="content">
+            <h3>Next Episode Auto Play</h3>
+            <p>
+              <span class="highlight-red">Increase retention</span> with
+              seamless content progression across your streaming website.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.4s">
+          <i class="ph-bold ph-users-four"></i>
+          <div class="content">
+            <h3>Personalized Multi Profile Viewing</h3>
+            <p>
+              User profiles with
+              <span class="highlight-red">tailored recommendations</span> and
+              watch history tracking.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.5s">
+          <i class="ph-bold ph-lock-key"></i>
+          <div class="content">
+            <h3>Secure PIN & OTP Access</h3>
+            <p>Advanced access control to protect users and premium content.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.6s">
+          <i class="ph-bold ph-presentation-chart"></i>
+          <div class="content">
+            <h3>VAST Ad Monetization Integration</h3>
+            <p>
+              Monetize streaming websites using dynamic ad insertion and VAST
+              support.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.7s">
+          <i class="ph-bold ph-bell-ringing"></i>
+          <div class="content">
+            <h3>Subscription & Watch History Control</h3>
+            <p>
+              Centralized control over subscriptions, billing logic, and viewer
+              activity.
+            </p>
+          </div>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.8s">
+          <i class="ph-bold ph-translate"></i>
+          <div class="content">
+            <h3>Multi Language & Subtitle Support</h3>
+            <p>
+              Global ready streaming websites with multilingual support and
+              localization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+      <div class="why-image reveal-left">
+        <img src="./assets/ab1.webp" alt="TV Viewing Experience" />
+      </div>
+      <div class="why-content reveal-right">
+        <h2>Why Choose Stackly</h2>
+        <p style="margin-bottom: 30px; color: var(--text-muted)">
+          Experience next-level entertainment with Streamit, the trusted
+          streaming platform that delivers seamless content and high-quality
+          entertainment.
+        </p>
+
+        <div class="why-item">
+          <div class="why-icon"><i class="ph-bold ph-film-slate"></i></div>
+          <div class="why-text">
+            <h4><span class="highlight-red">10,000+</span> Movies and Shows</h4>
+            <p>
+              Dive into a diverse library of top-rated content from blockbusters
+              to originals.
+            </p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="ph-bold ph-brain"></i></div>
+          <div class="why-text">
+            <h4>AI-Powered Recommendations</h4>
+            <p>
+              Enjoy personalized suggestions tailored to your viewing
+              preferences.
+            </p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="ph-bold ph-circle-dashed"></i></div>
+          <div class="why-text">
+            <h4>
+              <span class="highlight-red">99.9%</span> Uptime & Buffer-Free
+            </h4>
+            <p>
+              Built for speed and reliability, Streamit ensures uninterrupted
+              entertainment.
+            </p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon"><i class="ph-bold ph-credit-card"></i></div>
+          <div class="why-text">
+            <h4>Secure Payment & Hassle-Free</h4>
+            <p>Get started in seconds with 100% secure transactions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+      <div class="team-header reveal">
+        <h2>Masterminds Team</h2>
+        <p>
+          Your Stackly is built by one of the best and well experienced web
+          developers.
+        </p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal" style="transition-delay: 0.1s">
+          <div class="team-img-wrapper">
+            <img src="./assets/a2.webp" alt="Tonny Smith" />
+            <div class="team-social-overlay">
+              <a href="./404.html"><i class="ph ph-facebook-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-twitter-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-linkedin-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-instagram-logo"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <div class="role">CEO</div>
+            <div class="name">Tonny Smith</div>
+          </div>
+        </div>
+        <div class="team-card reveal" style="transition-delay: 0.2s">
+          <div class="team-img-wrapper">
+            <img src="./assets/a1.webp" alt="Barry Tech" />
+            <div class="team-social-overlay">
+              <a href="./404.html"><i class="ph ph-facebook-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-twitter-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-linkedin-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-instagram-logo"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <div class="role">Designer</div>
+            <div class="name">Barry Tech</div>
+          </div>
+        </div>
+        <div class="team-card reveal" style="transition-delay: 0.3s">
+          <div class="team-img-wrapper">
+            <img src="./assets/a3.webp" alt="Kep John" />
+            <div class="team-social-overlay">
+              <a href="./404.html"><i class="ph ph-facebook-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-twitter-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-linkedin-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-instagram-logo"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <div class="role">Developer</div>
+            <div class="name">Kep John</div>
+          </div>
+        </div>
+        <div class="team-card reveal" style="transition-delay: 0.4s">
+          <div class="team-img-wrapper">
+            <img src="./assets/a4.webp" alt="Monty Rock" />
+            <div class="team-social-overlay">
+              <a href="./404.html"><i class="ph ph-facebook-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-twitter-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-linkedin-logo"></i></a>
+              <a href="./404.html"><i class="ph ph-instagram-logo"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <div class="role">Designer</div>
+            <div class="name">Monty Rock</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="connect">
+      <div class="map-wrapper reveal-left">
+        <!-- Replaced SVG with IMG as requested -->
+        <img src="./assets/map.webp" alt="Global Reach Map" />
+      </div>
+      <div class="connect-content reveal-right">
+        <h2>Connect with Us</h2>
+        <p style="margin-bottom: 25px; color: var(--text-muted)">
+          We value our community and encourage feedback to help us improve. If
+          you have any questions, our support team is ready to help.
+        </p>
+        <ul class="connect-list">
+          <li><span>Company:</span> Stackly Design</li>
+          <li><span>Product:</span> Stackly OTT</li>
+          <li>
+            <span>Contact Us:</span>
+            <a href="./404.html">hello@stacklydesign</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-banner reveal">
+        <h2>Your Ultimate Streaming Experience Begins Here. Join Now</h2>
+        <p>Enjoy Unlimited Streaming for $25/Month—No Commitment!</p>
+        <button class="btn-red" onclick="window.location.href = './404.html'">
+          Start Free Trial
+        </button>
+      </div>
+    </section>
+    <footer class="secF-footer" id="mainFooter">
+      <div class="secF-overlay"></div>
+
+      <div class="secF-container">
+        <!-- Brand Section -->
+        <div class="secF-col secF-col1">
+          <img
+            src="./assets/logo.webp"
+            alt="logo"
+            onclick="window.location.href = './index.html'"
+          />
+          <p style="max-width: 600px; margin: 0 auto; text-align: center">
+            Experience cinematic excellence with the world's leading streaming
+            platform. Your gateway to unlimited entertainment and award-winning
+            originals.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="secF-col secF-col2">
+          <h3>Explore</h3>
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT US</a>
+          <a href="./blog.html">BLOG</a>
+          <a href="./contact.html">CONTACT</a>
+        </div>
+
+        <!-- Contact & Socials -->
+        <div class="secF-col secF-col3">
+          <h3>Support</h3>
+          <p>Corporate Office, Studio City</p>
+          <p>+91 1800-SCREEN</p>
+          <p>help@cinemareel.com</p>
+
+          <div class="secF-socials">
+            <a href="./404.html" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.8c4.56-.93 8-4.96 8-9.8z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                />
+              </svg>
+            </a>
+            <a href="./404.html" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="secF-col secF-col4">
+          <h3>Latest News</h3>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 19, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              Exclusive: Season 5 of "The Unknown" starts production.
+            </p>
+          </div>
+          <div class="secF-news-item">
+            <span class="secF-news-date">MAR 15, 2024</span>
+            <p
+              class="secF-news-text"
+              onclick="window.location.href = './404.html'"
+            >
+              New spatial audio feature rolling out for all members.
+            </p>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="secF-col secF-col5">
+          <h3>Join the Club</h3>
+          <div class="secF-form-box">
+            <p style="font-size: 0.8rem; margin-bottom: 15px; font-weight: 700">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </p>
+            <form class="secF-form" id="newsletterForm" action="./404.html">
+              <input
+                type="email"
+                id="newsletterEmail"
+                placeholder="Email Address"
+                required
+              />
+              <button type="submit">Get Started</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Strip -->
+      <div class="secF-bottom-strip">
+        <div class="secF-bottom-content">
+          <span class="secF-copy-text"
+            >© 2026 STACKLY OTT. ALL RIGHTS RESERVED.</span
+          >
+          <div class="secF-legal-links">
+            <a href="./404.html">PRIVACY POLICY</a>
+            <a href="./404.html">TERMS OF SERVICE</a>
+            <a href="./404.html">COOKIE SETTINGS</a>
+            <a href="./404.html" style="color: var(--film-gold)"
+              >BACK TO TOP ↑</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="secF-toast">
+      <svg style="width: 20px; height: 20px" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+        />
+      </svg>
+      SUCCESS! REDIRECTING...
+    </div>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+    <script>
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, observerOptions);
+
+      // Apply observer to all reveal elements
+      document
+        .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+        .forEach((el) => {
+          observer.observe(el);
+        });
+
+      // Smooth interaction for buttons
+      document.querySelectorAll(".btn-red").forEach((btn) => {
+        btn.addEventListener("mousedown", function () {
+          this.style.transform = "scale(0.95)";
+        });
+        btn.addEventListener("mouseup", function () {
+          this.style.transform = "scale(1)";
+        });
+      });
+    </script>
+  </body>
+</html>

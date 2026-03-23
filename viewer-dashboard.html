@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Stackly Stream</title>
+    <style>
+      :root {
+        --netflix-red: #e50914;
+        --netflix-red-dark: #b20710;
+        --bg-main: #141414;
+        --bg-black: #000000;
+        --bg-card: #181818;
+        --bg-light: #222222;
+        --text-primary: #ffffff;
+        --text-secondary: #e5e5e5;
+        --text-muted: #b3b3b3;
+        --border: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* --- SIDEBAR --- */
+      .stklyottdash-sidebar {
+        width: 240px;
+        background-color: var(--bg-black);
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border);
+        z-index: 1000;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .stklyottdash-sidebar-header {
+        padding: 25px;
+        color: var(--netflix-red);
+        font-size: 1.4rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stklyottdash-close-sidebar {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--text-muted);
+      }
+
+      .stklyottdash-nav {
+        flex: 1;
+        padding: 10px 0;
+      }
+
+      .stklyottdash-nav-item {
+        padding: 15px 25px;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+      }
+
+      .stklyottdash-nav-item:hover {
+        background: var(--bg-light);
+        color: var(--text-primary);
+      }
+
+      .stklyottdash-nav-item.active {
+        background: var(--netflix-red);
+        color: white;
+        border-left-color: white;
+        font-weight: 600;
+      }
+
+      /* --- MAIN AREA --- */
+      .stklyottdash-main {
+        margin-left: 240px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        width: 100%;
+        transition: margin-left 0.3s ease;
+      }
+
+      /* TOP BAR */
+      .stklyottdash-topbar {
+        height: 70px;
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stklyottdash-welcome {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .stklyottdash-welcome h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+      }
+
+      .stklyottdash-top-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .stklyottdash-user-email {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
+      .stklyottdash-logout {
+        background: var(--netflix-red);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+        white-space: nowrap;
+      }
+
+      .stklyottdash-logout:hover {
+        background: var(--netflix-red-dark);
+      }
+
+      /* CONTENT SECTIONS */
+      .stklyottdash-content {
+        padding: 25px;
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .stklyottdash-section-title {
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+      }
+
+      /* GRID SYSTEM */
+      .stklyottdash-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      /* CARD DESIGN */
+      .stklyottdash-card {
+        background: var(--bg-card);
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .stklyottdash-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+      }
+
+      .stklyottdash-card-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        background: var(--bg-light);
+        display: block;
+      }
+
+      .stklyottdash-card-info {
+        padding: 12px;
+      }
+
+      .stklyottdash-card-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* PROGRESS BAR */
+      .stklyottdash-progress-container {
+        height: 3px;
+        background: #333;
+        margin-top: 10px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .stklyottdash-progress-fill {
+        height: 100%;
+        background: var(--netflix-red);
+      }
+
+      /* CATEGORY CARDS */
+      .stklyottdash-cat-card {
+        height: 80px;
+        background: var(--bg-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        transition: all 0.3s;
+      }
+
+      .stklyottdash-cat-card:hover {
+        background: var(--netflix-red);
+        border-color: white;
+      }
+
+      /* SETTINGS FORM */
+      .stklyottdash-settings-form {
+        max-width: 500px;
+        background: var(--bg-card);
+        padding: 25px;
+        border-radius: 8px;
+      }
+
+      .stklyottdash-input-group {
+        margin-bottom: 15px;
+      }
+
+      .stklyottdash-input {
+        width: 100%;
+        padding: 12px;
+        background: var(--bg-light);
+        border: 1px solid var(--border);
+        color: white;
+        border-radius: 4px;
+        outline: none;
+      }
+
+      /* MOBILE OVERLAY */
+      .stklyottdash-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 950;
+        backdrop-filter: blur(4px);
+      }
+
+      /* MOBILE MENU TOGGLE */
+      .stklyottdash-mobile-toggle {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: white;
+        background: none;
+        border: none;
+      }
+
+      /* --- RESPONSIVE BREAKPOINTS --- */
+      @media (max-width: 1024px) {
+        .stklyottdash-sidebar {
+          transform: translateX(-100%);
+        }
+        .stklyottdash-sidebar.open {
+          transform: translateX(0);
+        }
+        .stklyottdash-main {
+          margin-left: 0;
+        }
+        .stklyottdash-mobile-toggle,
+        .stklyottdash-close-sidebar {
+          display: block;
+        }
+        .stklyottdash-sidebar.open ~ .stklyottdash-overlay {
+          display: block;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .stklyottdash-topbar {
+          padding: 0 15px;
+        }
+        .stklyottdash-user-email {
+          display: none; /* Hide email on tiny screens to save space */
+        }
+        .stklyottdash-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: 15px;
+        }
+        .stklyottdash-content {
+          padding: 15px;
+        }
+        .stklyottdash-welcome h2 {
+          font-size: 1rem;
+          max-width: 120px;
+        }
+        .stklyottdash-logout {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body id="body">
+    <!-- Mobile Overlay -->
+    <div
+      class="stklyottdash-overlay"
+      id="overlay"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- Sidebar -->
+    <aside class="stklyottdash-sidebar" id="sidebar">
+      <div class="stklyottdash-sidebar-header">
+        <span>STACKLY STREAM</span>
+        <span class="stklyottdash-close-sidebar" onclick="toggleSidebar()"
+          >✕</span
+        >
+      </div>
+      <nav class="stklyottdash-nav">
+        <div
+          class="stklyottdash-nav-item active"
+          onclick="changeSection('dashboard', this)"
+        >
+          Dashboard
+        </div>
+        <div
+          class="stklyottdash-nav-item"
+          onclick="changeSection('watchlist', this)"
+        >
+          My Watchlist
+        </div>
+        <div
+          class="stklyottdash-nav-item"
+          onclick="changeSection('continue', this)"
+        >
+          Continue Watching
+        </div>
+        <div
+          class="stklyottdash-nav-item"
+          onclick="changeSection('categories', this)"
+        >
+          Categories
+        </div>
+        <div
+          class="stklyottdash-nav-item"
+          onclick="changeSection('settings', this)"
+        >
+          Account Settings
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="stklyottdash-main">
+      <header class="stklyottdash-topbar">
+        <div class="stklyottdash-welcome">
+          <button class="stklyottdash-mobile-toggle" onclick="toggleSidebar()">
+            ☰
+          </button>
+          <h2 id="topbar-welcome">Welcome, User</h2>
+        </div>
+        <div class="stklyottdash-top-right">
+          <span id="user-email-display" class="stklyottdash-user-email"
+            >email@example.com</span
+          >
+          <button
+            class="stklyottdash-logout"
+            onclick="window.location.href = './index.html'"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div id="main-content" class="stklyottdash-content">
+        <!-- Content Injected via JS -->
+      </div>
+    </div>
+
+    <script>
+      // --- 🎯 AUTH & DATA FETCHING ---
+      const rawUser = localStorage.getItem("stkly_user");
+      if (!rawUser) {
+        window.location.href = "./login.html";
+      }
+
+      const user = JSON.parse(rawUser);
+      const userFirstName = user.email.split("@")[0];
+      const formattedName =
+        userFirstName.charAt(0).toUpperCase() + userFirstName.slice(1);
+
+      // Update Top Bar
+      document.getElementById("topbar-welcome").textContent =
+        `Hi, ${formattedName}`;
+      document.getElementById("user-email-display").textContent = user.email;
+
+      // --- 🔘 LOGOUT ---
+      function logout() {
+        localStorage.removeItem("stkly_user");
+        window.location.href = "./login.html";
+      }
+
+      // --- 🧱 MOCK DATA ---
+      const movies = [
+        {
+          id: 1,
+          title: "Inception",
+          img: "./assets/ind2.webp",
+          progress: 80,
+        },
+        {
+          id: 2,
+          title: "The Dark Knight",
+          img: "./assets/b2.webp",
+          progress: 45,
+        },
+        {
+          id: 3,
+          title: "Stranger Things",
+          img: "./assets/b3.webp",
+          progress: 100,
+        },
+        {
+          id: 4,
+          title: "Interstellar",
+          img: "./assets/b1.webp",
+          progress: 20,
+        },
+        {
+          id: 5,
+          title: "The Witcher",
+          img: "./assets/ind3.webp",
+        },
+        {
+          id: 6,
+          title: "Breaking Bad",
+          img: "./assets/ind1.webp",
+        },
+      ];
+
+      const sectionContent = {
+        dashboard: `
+                <h3 class="stklyottdash-section-title">Trending Now</h3>
+                <div class="stklyottdash-grid">
+                    ${movies
+                      .map(
+                        (m) => `
+                        <div class="stklyottdash-card">
+                            <img src="${m.img}" class="stklyottdash-card-img" alt="${m.title}" loading="lazy">
+                            <div class="stklyottdash-card-info">
+                                <div class="stklyottdash-card-title">${m.title}</div>
+                            </div>
+                        </div>
+                    `,
+                      )
+                      .join("")}
+                </div>
+            `,
+        watchlist: `
+                <h3 class="stklyottdash-section-title">My Watchlist</h3>
+                <div class="stklyottdash-grid">
+                    ${movies
+                      .slice(2, 5)
+                      .map(
+                        (m) => `
+                        <div class="stklyottdash-card">
+                            <img src="${m.img}" class="stklyottdash-card-img" alt="${m.title}" loading="lazy">
+                            <div class="stklyottdash-card-info">
+                                <div class="stklyottdash-card-title">${m.title}</div>
+                            </div>
+                        </div>
+                    `,
+                      )
+                      .join("")}
+                </div>
+            `,
+        continue: `
+                <h3 class="stklyottdash-section-title">Continue Watching</h3>
+                <div class="stklyottdash-grid">
+                    ${movies
+                      .filter((m) => m.progress)
+                      .map(
+                        (m) => `
+                        <div class="stklyottdash-card">
+                            <img src="${m.img}" class="stklyottdash-card-img" alt="${m.title}" loading="lazy">
+                            <div class="stklyottdash-card-info">
+                                <div class="stklyottdash-card-title">${m.title}</div>
+                                <div class="stklyottdash-progress-container">
+                                    <div class="stklyottdash-progress-fill" style="width: ${m.progress}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                      )
+                      .join("")}
+                </div>
+            `,
+        categories: `
+                <h3 class="stklyottdash-section-title">Categories</h3>
+                <div class="stklyottdash-grid">
+                    <div class="stklyottdash-cat-card">Action</div>
+                    <div class="stklyottdash-cat-card">Comedy</div>
+                    <div class="stklyottdash-cat-card">Thriller</div>
+                    <div class="stklyottdash-cat-card">Sci-Fi</div>
+                    <div class="stklyottdash-cat-card">Drama</div>
+                    <div class="stklyottdash-cat-card">Horror</div>
+                </div>
+            `,
+        settings: `
+                <h3 class="stklyottdash-section-title">Account</h3>
+                <div class="stklyottdash-settings-form">
+                    <div class="stklyottdash-input-group">
+                        <label style="display:block;margin-bottom:8px;color:var(--text-muted);font-size:0.8rem;">DISPLAY NAME</label>
+                        <input type="text" class="stklyottdash-input" value="${formattedName}">
+                    </div>
+                    <div class="stklyottdash-input-group">
+                        <label style="display:block;margin-bottom:8px;color:var(--text-muted);font-size:0.8rem;">EMAIL</label>
+                        <input type="text" class="stklyottdash-input" value="${user.email}" readonly style="opacity:0.5">
+                    </div>
+                    <button class="stklyottdash-logout" style="width: 100%; margin-top: 10px;"  onclick="window.location.href = './404.html'">Save Changes</button>
+                </div>
+            `,
+      };
+
+      // --- 🔁 NAVIGATION & SIDEBAR LOGIC ---
+      function changeSection(section, element) {
+        document
+          .querySelectorAll(".stklyottdash-nav-item")
+          .forEach((item) => item.classList.remove("active"));
+        element.classList.add("active");
+
+        const contentDiv = document.getElementById("main-content");
+        contentDiv.innerHTML = sectionContent[section];
+
+        if (window.innerWidth <= 1024) {
+          toggleSidebar();
+        }
+        // Scroll to top of content
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const isOpening = !sidebar.classList.contains("open");
+
+        sidebar.classList.toggle("open");
+        overlay.style.display = isOpening ? "block" : "none";
+        document.body.style.overflow = isOpening ? "hidden" : "auto";
+      }
+
+      // Initialize
+      window.onload = () => {
+        document.getElementById("main-content").innerHTML =
+          sectionContent.dashboard;
+      };
+    </script>
+  </body>
+</html>

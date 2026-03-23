@@ -1,0 +1,322 @@
+:root {
+  --netflix-red: #e50914;
+  --netflix-red-dark: #b20710;
+  --bg-black: #000000;
+  --text-primary: #ffffff;
+  --text-muted: #b3b3b3;
+  --border: #333333;
+  --reel-gold: #c9a84f;
+  --perf-size: 14px;
+  --perf-gap: 12px;
+  --nav-height: 90px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #111;
+  min-height: 200vh;
+}
+
+/* --- FILM REEL CONTAINER --- */
+.film-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: var(--bg-black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+  border-top: 4px solid var(--reel-gold);
+  border-bottom: 4px solid var(--reel-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+/* Subtle Grain Overlay */
+.film-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.97;
+  }
+  5% {
+    opacity: 0.95;
+  }
+  10% {
+    opacity: 0.99;
+  }
+  15% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.film-navbar {
+  animation: flicker 4s infinite;
+}
+
+/* --- PERFORATIONS --- */
+.perforations {
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: var(--perf-size);
+  display: flex;
+  pointer-events: none;
+  z-index: 2;
+}
+.perforations.top {
+  top: 8px;
+}
+.perforations.bottom {
+  bottom: 8px;
+}
+
+.hole-strip {
+  display: flex;
+  animation: scroll-holes 20s linear infinite;
+}
+.hole {
+  width: var(--perf-size);
+  height: var(--perf-size);
+  background-color: #1a1a1a;
+  margin-right: var(--perf-gap);
+  border-radius: 2px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(201, 168, 79, 0.2);
+}
+@keyframes scroll-holes {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- LOGO --- */
+.logo-img {
+  height: 40px;
+  width: 120px;
+  background: linear-gradient(45deg, var(--reel-gold), #fff, var(--reel-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+}
+/* --- LOGO CSS --- */
+.nav-logo {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 100%; /* Ensures it stays centered in the nav-height */
+}
+
+.logo-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.logo-img img {
+  /* Adjust height to fit comfortably between the film perforations */
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+
+  /* Adds a subtle cinematic glow to the logo */
+  filter: drop-shadow(0 0 8px rgba(201, 168, 79, 0.2));
+  transition: all 0.3s ease;
+}
+
+/* Hover effect: make the logo pop slightly */
+.nav-logo:hover .logo-img img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(201, 168, 79, 0.5));
+}
+
+/* Mobile adjustments */
+@media (max-width: 992px) {
+  .logo-img img {
+    height: 60px; /* Slightly smaller for mobile screens */
+  }
+}
+/* --- LINKS --- */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  z-index: 10;
+}
+.nav-item {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+.nav-item:hover {
+  color: var(--netflix-red);
+}
+.nav-item i {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- ACTIONS --- */
+.nav-actions {
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+.btn {
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all 0.3s;
+}
+.btn-login {
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  background: transparent;
+}
+.btn-start {
+  background-color: var(--netflix-red);
+  color: white;
+}
+
+/* --- MOBILE TOGGLE --- */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+.hamburger-icon span {
+  display: block;
+  height: 3px;
+  width: 30px;
+  background-color: var(--reel-gold);
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+/* --- MOBILE OVERLAY --- */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.98);
+  backdrop-filter: blur(15px);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 40px;
+  transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.mobile-overlay.active {
+  left: 0;
+}
+
+/* DEDICATED CLOSE BUTTON IN OVERLAY */
+.close-overlay-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--reel-gold);
+  color: var(--reel-gold);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.close-overlay-btn:hover {
+  background: var(--netflix-red);
+  border-color: var(--netflix-red);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 40px;
+}
+.mobile-item {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: 0.4s ease;
+}
+.mobile-overlay.active .mobile-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 992px) {
+  .nav-links,
+  .nav-actions {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .film-navbar {
+    padding: 0 20px;
+  }
+}
